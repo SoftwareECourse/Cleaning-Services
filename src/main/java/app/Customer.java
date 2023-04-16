@@ -1,6 +1,7 @@
 package app;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.Id;
 
 @Entity
@@ -12,6 +13,8 @@ public class Customer {
 	String address;
 	String email;
 	int phone;
+
+	static EntityManager em = App.getEntityManager();
 
 	public int getId() {
 		return id;
@@ -57,6 +60,12 @@ public class Customer {
 
 	public void setPhone(int phone) {
 		this.phone = phone;
+	}
+
+	public static Customer findCustomer(int id) {
+		Customer customer = em.find(Customer.class, id);
+		return customer;
+
 	}
 
 }

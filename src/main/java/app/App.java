@@ -11,6 +11,7 @@ import org.hibernate.mapping.List;
 
 import antlr.debug.NewLineEvent;
 import app.commands.AddCustomerCommand;
+import app.commands.DeleteCustomerCommand;
 import app.commands.LoginCommand;
 import app.commands.LogoutCommand;
 import picocli.CommandLine;
@@ -25,7 +26,8 @@ public class App implements Runnable {
 
 		commandLine = new CommandLine(new App());
 		commandLine.addSubcommand("login", new LoginCommand()).addSubcommand("logout", new LogoutCommand())
-				.addSubcommand("add-customer", new AddCustomerCommand());
+				.addSubcommand("add-customer", new AddCustomerCommand())
+				.addSubcommand("delete-customer", new DeleteCustomerCommand());
 		commandLine.execute(args);
 
 	}
