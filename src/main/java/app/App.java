@@ -1,17 +1,16 @@
 package app;
 
-import java.util.ArrayList;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 
-import org.hibernate.mapping.List;
-
-import antlr.debug.NewLineEvent;
 import app.commands.AddCustomerCommand;
+import app.commands.AddProductCommand;
+import app.commands.AddWorkerCommand;
 import app.commands.DeleteCustomerCommand;
+import app.commands.DeleteWorkerCommand;
+import app.commands.ListCustomersCommand;
+import app.commands.ListWorkersCommand;
 import app.commands.LoginCommand;
 import app.commands.LogoutCommand;
 import picocli.CommandLine;
@@ -27,7 +26,13 @@ public class App implements Runnable {
 		commandLine = new CommandLine(new App());
 		commandLine.addSubcommand("login", new LoginCommand()).addSubcommand("logout", new LogoutCommand())
 				.addSubcommand("add-customer", new AddCustomerCommand())
-				.addSubcommand("delete-customer", new DeleteCustomerCommand());
+				.addSubcommand("delete-customer", new DeleteCustomerCommand())
+				.addSubcommand("add-worker", new AddWorkerCommand())
+				.addSubcommand("delete-worker", new DeleteWorkerCommand())
+				.addSubcommand("list-customers", new ListCustomersCommand())
+				.addSubcommand("list-workers", new ListWorkersCommand())
+				.addSubcommand("add-product", new AddProductCommand());
+
 		commandLine.execute(args);
 
 	}
