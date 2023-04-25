@@ -8,10 +8,10 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 
-		features = "use_cases", glue = "app", plugin = "html:target/cucumber/test.html", tags = "@add-product"
-
-)
+		features = "use_cases/complete_invoice.feature", glue = "app", plugin = "html:target/cucumber/test.html")
 
 public class Configuration {
 
 }
+
+// tags = "@add-product"

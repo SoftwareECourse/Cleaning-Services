@@ -1,20 +1,16 @@
 package app.commands;
 
-//import org.hibernate.Query;
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.cfg.Configuration;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import app.Admin;
 import app.App;
-import app.Worker;
+import app.Product;
 import picocli.CommandLine.Command;
 
-@Command(name = "list-workers", description = "List all workers")
-public class ListWorkersCommand implements Runnable {
+@Command(name = "list-products", description = "List all products")
+public class ListProductsCommand implements Runnable {
 
 	EntityManager em = App.getEntityManager();
 
@@ -24,22 +20,24 @@ public class ListWorkersCommand implements Runnable {
 		Admin admin = logincommand.getAdmin();
 
 		if (admin.getState()) {
-
 			em.getTransaction().begin();
 
-//			Query query = em.createQuery("FROM Worker", Worker.class);
-//			List<Worker> workers = query.getResultList();
+//			Query query = em.createQuery("FROM Product", Product.class);
+//			List<Product> products = query.getResultList();
 
-			List<Worker> workers = Worker.getAllWorkers();
+			List<Product> products = Product.getAllProducts();
 
-			for (Worker w : workers) {
-				System.out.println(w);
+			for (Product p : products) {
+				System.out.println(p);
 			}
 
 			em.close();
+
 		} else {
 			System.out.println("You can't run any command before logging in to the System, please login first.");
+
 		}
+
 	}
 
 }

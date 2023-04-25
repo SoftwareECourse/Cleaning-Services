@@ -1,8 +1,11 @@
 package app;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
+import javax.persistence.TypedQuery;
 
 @Entity
 public class Customer {
@@ -66,6 +69,14 @@ public class Customer {
 		Customer customer = em.find(Customer.class, id);
 		return customer;
 
+	}
+
+	public static List<Customer> getAllCustomers() {
+
+		TypedQuery<Customer> query = em.createQuery("FROM Customer", Customer.class);
+		List<Customer> customers = query.getResultList();
+
+		return customers;
 	}
 
 }

@@ -1,8 +1,11 @@
 package app;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
+import javax.persistence.TypedQuery;
 
 @Entity
 public class Product {
@@ -15,6 +18,24 @@ public class Product {
 	String status;
 	Boolean specialTreatment;
 	Integer customer_id;
+	Integer size;
+	Float cost;
+
+	public Integer getSize() {
+		return size;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
+	}
+
+	public Float getCost() {
+		return cost;
+	}
+
+	public void setCost(Float cost) {
+		this.cost = cost;
+	}
 
 	public int getId() {
 		return id;
@@ -85,6 +106,14 @@ public class Product {
 		Product product = em.find(Product.class, id);
 		em.close();
 		return product;
+	}
+
+	public static List<Product> getAllProducts() {
+
+		TypedQuery<Product> query = em.createQuery("FROM Product", Product.class);
+		List<Product> products = query.getResultList();
+		return products;
+
 	}
 
 }

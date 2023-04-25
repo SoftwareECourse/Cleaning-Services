@@ -2,11 +2,9 @@ package app;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.math.BigInteger;
+import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import app.commands.AddCustomerCommand;
 import io.cucumber.java.en.Given;
@@ -15,6 +13,7 @@ import io.cucumber.java.en.When;
 
 public class AddCustomerSteps {
 
+	int numberOfCustomers;
 	Customer customer;
 	AddCustomerCommand addCustomerCommand;
 	EntityManager em = App.getEntityManager();
@@ -36,6 +35,8 @@ public class AddCustomerSteps {
 		customer.setPhone(phone);
 		customer.setEmail(email);
 
+		numberOfCustomers = Customer.getAllCustomers().size();
+
 	}
 
 	@When("the admin add the customer to the database")
@@ -49,6 +50,7 @@ public class AddCustomerSteps {
 		Customer savedCustomer = em.find(Customer.class, addCustomerCommand.getLastGeneratedId());
 
 		assertNotNull(savedCustomer);
+		assertTrue((numberOfCustomers + 1) == Customer.getAllCustomers().size());
 		assertEquals(customer.getName(), savedCustomer.getName());
 		assertEquals(customer.getAddress(), savedCustomer.getAddress());
 		assertEquals(customer.getPhone(), savedCustomer.getPhone());

@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import app.Admin;
 import app.App;
+import app.Invoice;
 import app.Product;
 import app.Worker;
 import picocli.CommandLine.Command;
@@ -21,6 +22,9 @@ public class AddProductCommand implements Runnable {
 
 	@Option(names = { "-n", "--name" }, description = "The name of the product")
 	private String name;
+
+	@Option(names = { "-s", "--size" }, required = true, description = "The size of the product")
+	private Integer size;
 
 	@Option(names = { "-st", "--special-treatment" }, description = "Special Treatment for the product")
 	private Boolean specialTreatment;
@@ -38,6 +42,7 @@ public class AddProductCommand implements Runnable {
 			product.setCustomer_id(cid);
 			product.setName(name);
 			product.setSpecialTreatment(specialTreatment);
+			product.setSize(size);
 			product.setStatus(null);
 
 			product = this.addProduct(product);
@@ -55,11 +60,11 @@ public class AddProductCommand implements Runnable {
 		try {
 			em.getTransaction().begin();
 
+			product.setCost(product.getSize() * 10f);
 			em.persist(product);
 			Product p = em.find(Product.class, getLastGeneratedId());
 
-			Query query = em.createQuery("FROM Worker", Worker.class); // get all workers
-			List<Worker> workers = query.getResultList();
+			List<Worker> workers = Worker.getAllWorkers();
 
 			for (Worker w : workers) {
 
@@ -71,19 +76,63 @@ public class AddProductCommand implements Runnable {
 					break;
 				}
 			}
-
 			if (p.getStatus() == null) {
 				p.setStatus("Waiting");
 				em.merge(p);
 			}
 
+			this.updateInvoice(p);
 			em.getTransaction().commit();
 			return p;
 
 		} catch (Exception e) {
-			System.out.println("The customer id is not correct");
+			em.getTransaction().rollback();
 			return null;
 		}
+
+	}
+
+	private void updateInvoice(Product product) {
+
+		List<Invoice> invoises = Invoice.getAllInvoices();
+
+		Boolean noInvoiceForCustomer = true;
+		for (Invoice i : invoises) {
+			Boolean existInvoice = i.getCustomer_id().equals(product.getCustomer_id()) && !i.getDelivered();
+			if (existInvoice) {
+				i.setCost(i.getCost() + product.getCost());
+				em.merge(this.calcDiscount(i));
+				noInvoiceForCustomer = false;
+				break;
+			}
+		}
+		if (noInvoiceForCustomer) {
+			Invoice i = new Invoice();
+			i.setCustomer_id(product.getCustomer_id());
+			i.setCost(product.getCost());
+			em.persist(this.calcDiscount(i));
+		}
+	}
+
+	private Invoice calcDiscount(Invoice i) {
+
+		Invoice newInvoice = i;
+		Float discountRate = 0f;
+
+		if (i.getCost() > 800)
+			discountRate = 0.2f;
+		else if (i.getCost() > 400)
+			discountRate = 0.1f;
+		else if (i.getCost() > 300)
+			discountRate = 0.05f;
+
+		Float dicountedCost = i.getCost() - (discountRate * i.getCost());
+
+		newInvoice.setDiscountRate(discountRate);
+		newInvoice.setDiscountedCost(dicountedCost);
+		newInvoice.setDelivered(false);
+
+		return newInvoice;
 
 	}
 

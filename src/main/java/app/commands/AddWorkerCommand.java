@@ -36,7 +36,6 @@ public class AddWorkerCommand implements Runnable {
 			worker.setName(name);
 			worker.setAddress(address);
 			worker.setPhone(phone);
-			worker.setProductId(null);
 
 			addWorker(worker);
 			worker.setId(getLastGeneratedId());
@@ -51,7 +50,8 @@ public class AddWorkerCommand implements Runnable {
 
 	public void addWorker(Worker worker) {
 		em.getTransaction().begin();
-		em.persist(worker);
+		Worker w = Worker.giveWork(worker);
+		em.persist(w);
 		em.getTransaction().commit();
 	}
 

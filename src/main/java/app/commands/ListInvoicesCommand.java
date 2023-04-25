@@ -1,20 +1,16 @@
 package app.commands;
 
-//import org.hibernate.Query;
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.cfg.Configuration;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import app.Admin;
 import app.App;
-import app.Worker;
+import app.Invoice;
 import picocli.CommandLine.Command;
 
-@Command(name = "list-workers", description = "List all workers")
-public class ListWorkersCommand implements Runnable {
+@Command(name = "list-invoices", description = "List all invoices")
+public class ListInvoicesCommand implements Runnable {
 
 	EntityManager em = App.getEntityManager();
 
@@ -27,13 +23,10 @@ public class ListWorkersCommand implements Runnable {
 
 			em.getTransaction().begin();
 
-//			Query query = em.createQuery("FROM Worker", Worker.class);
-//			List<Worker> workers = query.getResultList();
+			List<Invoice> in = Invoice.getAllInvoices();
 
-			List<Worker> workers = Worker.getAllWorkers();
-
-			for (Worker w : workers) {
-				System.out.println(w);
+			for (Invoice i : in) {
+				System.out.println(i);
 			}
 
 			em.close();
