@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Customer;
@@ -23,6 +25,7 @@ public class CompleteInvoiceCommand implements Runnable {
 	private int customerId;
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -33,10 +36,10 @@ public class CompleteInvoiceCommand implements Runnable {
 
 			Invoice i = this.setComplete(invoiceId);
 			if (i != null)
-				System.out.printf("Invoice %d has been marked as complete.%n", invoiceId);
+				logger.info("Invoice %d has been marked as complete.%n", invoiceId);
 
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 		}
 
 	}
@@ -63,7 +66,6 @@ public class CompleteInvoiceCommand implements Runnable {
 				em.merge(invoice);
 				em.getTransaction().commit();
 
-				
 				Email email = new Email();
 				String message = String.format("Hello %s \nYour order is ready \nCost = %.1f \nDiscounted cost=%.1f",
 						customer.getName(), invoice.getCost(), invoice.getDiscountedCost());
@@ -71,12 +73,12 @@ public class CompleteInvoiceCommand implements Runnable {
 
 				return invoice;
 			} else {
-				System.out.println("The invoice is not ready, There is a products under treatment");
+				logger.info("The invoice is not ready, There is a products under treatment");
 				return null;
 			}
 
 		} else {
-			System.out.println("The invoice is already complete ");
+			logger.warn("The invoice is already complete ");
 			return null;
 		}
 

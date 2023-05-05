@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Worker;
@@ -17,6 +19,7 @@ import picocli.CommandLine.Command;
 public class ListWorkersCommand implements Runnable {
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -33,12 +36,12 @@ public class ListWorkersCommand implements Runnable {
 			List<Worker> workers = Worker.getAllWorkers();
 
 			for (Worker w : workers) {
-				System.out.println(w);
+				logger.info(w);
 			}
 
 			em.close();
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 		}
 	}
 

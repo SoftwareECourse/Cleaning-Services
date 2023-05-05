@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Product;
@@ -13,6 +15,7 @@ import picocli.CommandLine.Command;
 public class ListProductsCommand implements Runnable {
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -28,13 +31,13 @@ public class ListProductsCommand implements Runnable {
 			List<Product> products = Product.getAllProducts();
 
 			for (Product p : products) {
-				System.out.println(p);
+				logger.info(p);
 			}
 
 			em.close();
 
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 
 		}
 

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Invoice;
@@ -30,6 +32,7 @@ public class AddProductCommand implements Runnable {
 	private Boolean specialTreatment;
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -48,11 +51,11 @@ public class AddProductCommand implements Runnable {
 			product = this.addProduct(product);
 
 			if (product != null)
-				System.out.println("Added " + product + " to the System.");
+				logger.info("Added " + product + " to the System.");
 
 			em.close();
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 		}
 	}
 

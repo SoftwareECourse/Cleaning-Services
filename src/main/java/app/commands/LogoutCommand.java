@@ -2,6 +2,8 @@ package app.commands;
 
 import javax.persistence.EntityManager;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import picocli.CommandLine.Command;
@@ -10,6 +12,7 @@ import picocli.CommandLine.Command;
 public class LogoutCommand implements Runnable {
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -21,9 +24,9 @@ public class LogoutCommand implements Runnable {
 			em.merge(admin);
 			em.getTransaction().commit();
 			em.close();
-			System.out.println("Logged out from System.");
+			logger.info("Logged out from System.");
 		} else {
-			System.out.println("You already logged out from the System");
+			logger.warn("You already logged out from the System");
 		}
 
 	}

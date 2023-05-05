@@ -2,6 +2,8 @@ package app.commands;
 
 import javax.persistence.EntityManager;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Worker;
@@ -15,6 +17,7 @@ public class DeleteWorkerCommand implements Runnable {
 	private int id;
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -25,7 +28,7 @@ public class DeleteWorkerCommand implements Runnable {
 			Worker worker = em.find(Worker.class, id);
 			this.deleteWorker(em, worker);
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 		}
 		em.close();
 	}
@@ -38,9 +41,9 @@ public class DeleteWorkerCommand implements Runnable {
 			em.remove(worker);
 			em.getTransaction().commit();
 
-			System.out.println("Deleting worker with ID: " + id);
+			logger.info("Deleting worker with ID: " + id);
 		} else {
-			System.out.println("There is no a worker with ID: " + id);
+			logger.warn("There is no a worker with ID: " + id);
 		}
 
 	}

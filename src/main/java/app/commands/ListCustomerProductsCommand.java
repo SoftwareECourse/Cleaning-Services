@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Product;
@@ -17,6 +19,7 @@ public class ListCustomerProductsCommand implements Runnable {
 	private int cid;
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -34,14 +37,13 @@ public class ListCustomerProductsCommand implements Runnable {
 
 			for (Product p : products) {
 				if (p.getCustomer_id() == cid)
-					System.out.println(p);
+					logger.info(p);
 			}
 
 			em.close();
 
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
-
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 		}
 
 	}

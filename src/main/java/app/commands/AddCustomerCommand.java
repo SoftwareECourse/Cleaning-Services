@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Customer;
@@ -27,6 +29,7 @@ public class AddCustomerCommand implements Runnable {
 	private String email;
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -44,11 +47,11 @@ public class AddCustomerCommand implements Runnable {
 			addCustomer(customer);
 			customer.setId(getLastGeneratedId());
 
-			System.out.println("Added " + customer + " to the System.");
+			logger.info("Added " + customer + " to the System.");
 
 			em.close();
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 		}
 	}
 

@@ -2,6 +2,8 @@ package app.commands;
 
 import javax.persistence.EntityManager;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import picocli.CommandLine.Command;
@@ -17,6 +19,7 @@ public class LoginCommand implements Runnable {
 	private String password;
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -29,13 +32,13 @@ public class LoginCommand implements Runnable {
 				em.merge(admin);
 				em.getTransaction().commit();
 				em.close();
-				System.out.println("loged in the system");
+				logger.info("logged in the system");
 
 			} else {
-				System.out.println("please return the login step");
+				logger.info("please return the login step");
 			}
 		} else {
-			System.out.println("You are alerady logged in");
+			logger.warn("You are alerady logged in");
 		}
 
 	}

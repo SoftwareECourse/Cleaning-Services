@@ -11,7 +11,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Email {
+
+	private static Logger logger = LogManager.getLogger(App.class.getName());
 
 	public void sendEmail(String to, String subject, String message) {
 
@@ -42,7 +47,7 @@ public class Email {
 			message1.setText(message);
 
 			Transport.send(message1);
-			System.out.println("Email Sent successfully....");
+			logger.info("Email Sent successfully....");
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 		}

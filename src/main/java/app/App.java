@@ -1,11 +1,11 @@
 package app;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-
 
 import app.commands.AddCustomerCommand;
 import app.commands.AddProductCommand;
@@ -29,6 +29,7 @@ import picocli.CommandLine.Command;
 public class App implements Runnable {
 
 	static CommandLine commandLine;
+	public static Logger logger = LogManager.getLogger(App.class.getName());
 
 	public static void main(String[] args) {
 
@@ -54,10 +55,7 @@ public class App implements Runnable {
 	}
 
 	public void run() {
-		System.out.println("Welcome to Cleaning services for carpets and covers!");
-//		System.out.printf("%-s" , "hello");
-//		Map<String, CommandLine> commands = commandLine.getSubcommands();
-
+		logger.info("Welcome to Cleaning services for carpets and covers!");
 	}
 
 	public static EntityManager getEntityManager() {

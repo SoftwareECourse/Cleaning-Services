@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Worker;
@@ -24,6 +26,7 @@ public class AddWorkerCommand implements Runnable {
 	private int phone;
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -40,11 +43,11 @@ public class AddWorkerCommand implements Runnable {
 			addWorker(worker);
 			worker.setId(getLastGeneratedId());
 
-			System.out.println("Added " + worker + " to the System.");
+			logger.info("Added " + worker + " to the System.");
 
 			em.close();
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 		}
 	}
 

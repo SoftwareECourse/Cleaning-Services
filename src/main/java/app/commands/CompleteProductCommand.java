@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Product;
@@ -18,6 +20,7 @@ public class CompleteProductCommand implements Runnable {
 	private int productId;
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -27,10 +30,10 @@ public class CompleteProductCommand implements Runnable {
 		if (admin.getState()) {
 
 			if (this.setComplete(productId).getStatus().equals("Complete"))
-				System.out.printf("Product %d has been marked as completed and is now available to the customer.%n",
+				logger.info("Product %d has been marked as completed and is now available to the customer.%n",
 						productId);
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 		}
 
 	}
@@ -54,13 +57,13 @@ public class CompleteProductCommand implements Runnable {
 				em.getTransaction().commit();
 			} else {
 				if (p.getStatus().equals("Complete"))
-					System.out.println("The product is already Complete");
+					logger.info("The product is already Complete");
 				else
-					System.out.println("The product is in Waiting state");
+					logger.info("The product is in Waiting state");
 			}
 			return p;
 		} else {
-			System.out.println("Product id is not correct");
+			logger.error("Product id is not correct");
 			return null;
 		}
 

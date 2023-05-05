@@ -2,6 +2,8 @@ package app.commands;
 
 import javax.persistence.EntityManager;
 
+import org.apache.logging.log4j.Logger;
+
 import app.Admin;
 import app.App;
 import app.Customer;
@@ -15,6 +17,7 @@ public class DeleteCustomerCommand implements Runnable {
 	private int id;
 
 	EntityManager em = App.getEntityManager();
+	Logger logger = App.logger;
 
 	public void run() {
 
@@ -25,7 +28,7 @@ public class DeleteCustomerCommand implements Runnable {
 			Customer customer = em.find(Customer.class, id);
 			this.deleteCustomer(customer);
 		} else {
-			System.out.println("You can't run any command before logging in to the System, please login first.");
+			logger.warn("You can't run any command before logging in to the System, please login first.");
 		}
 
 	}
@@ -38,9 +41,9 @@ public class DeleteCustomerCommand implements Runnable {
 			em.remove(customer);
 			em.getTransaction().commit();
 			em.close();
-			System.out.println("Deleting customer with ID: " + id);
+			logger.info("Deleting customer with ID: " + id);
 		} else {
-			System.out.println("There is no a customer with ID: " + id);
+			logger.warn("There is no a customer with ID: " + id);
 		}
 
 	}
