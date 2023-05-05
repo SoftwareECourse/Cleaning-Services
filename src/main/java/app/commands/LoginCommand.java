@@ -35,7 +35,7 @@ public class LoginCommand implements Runnable {
 				System.out.println("please return the login step");
 			}
 		} else {
-			System.out.println("You are alerady logged in maan");
+			System.out.println("You are alerady logged in");
 		}
 
 	}
