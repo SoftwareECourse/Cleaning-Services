@@ -65,9 +65,10 @@
 			<version>1.6.2</version>
 		</dependency>
 	</dependencies>
-
 	<properties>
 		<sonar.organization>softwareecourse</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
 </project>
