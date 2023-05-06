@@ -11,12 +11,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Email {
 
-	private static Logger logger = LogManager.getLogger(App.class.getName());
+	Logger logger = App.logger;
 
 	public void sendEmail(String to, String subject, String message) {
 
@@ -33,6 +32,7 @@ public class Email {
 
 		// Get session object
 		Session session = Session.getInstance(properties, new Authenticator() {
+			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(from, password);
 			}
