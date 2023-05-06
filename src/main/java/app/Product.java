@@ -85,18 +85,18 @@ public class Product {
 		this.specialTreatment = specialTreatment;
 	}
 
-	public Integer getCustomer_id() {
+	public Integer getCustomerId() {
 		return customer_id;
 	}
 
-	public void setCustomer_id(Integer customer_id) {
+	public void setCustomerId(Integer customer_id) {
 		this.customer_id = customer_id;
 	}
 
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", picture=" + picture + ", description=" + description
-				+ ", status=" + status + ", specialTreatment=" + specialTreatment + ", customer_id=" + customer_id
+				+ ", status=" + status + ", specialTreatment=" + specialTreatment + ", customer id=" + customer_id
 				+ "]";
 	}
 

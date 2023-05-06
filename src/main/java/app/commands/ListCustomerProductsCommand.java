@@ -33,7 +33,7 @@ public class ListCustomerProductsCommand implements Runnable {
 			List<Product> products = Product.getAllProducts();
 
 			for (Product p : products) {
-				if (p.getCustomer_id() == cid)
+				if (p.getCustomerId() == cid)
 					logger.info(p);
 			}
 

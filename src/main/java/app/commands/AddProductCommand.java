@@ -42,7 +42,7 @@ public class AddProductCommand implements Runnable {
 		if (admin.getState()) {
 
 			Product product = new Product();
-			product.setCustomer_id(cid);
+			product.setCustomerId(cid);
 			product.setName(name);
 			product.setSpecialTreatment(specialTreatment);
 			product.setSize(size);
@@ -101,7 +101,7 @@ public class AddProductCommand implements Runnable {
 
 		Boolean noInvoiceForCustomer = true;
 		for (Invoice i : invoises) {
-			Boolean existInvoice = i.getCustomer_id().equals(product.getCustomer_id()) && !i.getDelivered();
+			Boolean existInvoice = i.getCustomerId().equals(product.getCustomerId()) && !i.getDelivered();
 
 			if (Boolean.TRUE.equals(existInvoice)) {
 				i.setCost(i.getCost() + product.getCost());
@@ -112,7 +112,7 @@ public class AddProductCommand implements Runnable {
 		}
 		if (Boolean.TRUE.equals(noInvoiceForCustomer)) {
 			Invoice i = new Invoice();
-			i.setCustomer_id(product.getCustomer_id());
+			i.setCustomerId(product.getCustomerId());
 			i.setCost(product.getCost());
 			em.persist(this.calcDiscount(i));
 		}

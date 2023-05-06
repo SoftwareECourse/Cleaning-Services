@@ -47,14 +47,14 @@ public class CompleteInvoiceCommand implements Runnable {
 	public Invoice setComplete(int invoiceId) {
 
 		Invoice invoice = Invoice.findInvoice(invoiceId);
-		Customer customer = Customer.findCustomer(invoice.getCustomer_id());
+		Customer customer = Customer.findCustomer(invoice.getCustomerId());
 
 		if (Boolean.FALSE.equals(invoice.getDelivered())) {
 
 			Boolean invoiceIsReady = true;
 			List<Product> products = Product.getAllProducts();
 			for (Product c : products) {
-				if (c.getCustomer_id().equals(invoice.getCustomer_id()) && !c.getStatus().equals("Complete")) {
+				if (c.getCustomerId().equals(invoice.getCustomerId()) && !c.getStatus().equals("Complete")) {
 					invoiceIsReady = false;
 					break;
 				}

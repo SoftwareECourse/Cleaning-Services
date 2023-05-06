@@ -12,7 +12,7 @@ public class Invoice {
 
 	@Id
 	int id;
-	Integer customer_id;
+	Integer customerId;
 	Float discountRate;
 	Float cost;
 	Float discountedCost;
@@ -32,7 +32,7 @@ public class Invoice {
 
 	@Override
 	public String toString() {
-		return "Invoice [id=" + id + ", customer_id=" + customer_id + ", discountRate=" + discountRate + ", cost="
+		return "Invoice [id=" + id + ", customer id=" + customerId + ", discountRate=" + discountRate + ", cost="
 				+ cost + ", discountedCost=" + discountedCost + ", delivered=" + delivered + "]";
 	}
 
@@ -40,12 +40,12 @@ public class Invoice {
 		this.id = id;
 	}
 
-	public Integer getCustomer_id() {
-		return customer_id;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomer_id(Integer customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerId(Integer customer_id) {
+		this.customerId = customer_id;
 	}
 
 	public Float getDiscountRate() {

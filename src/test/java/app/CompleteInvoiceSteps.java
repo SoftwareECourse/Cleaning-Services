@@ -53,7 +53,7 @@ public class CompleteInvoiceSteps {
 		CompleteProductCommand cpc = new CompleteProductCommand();
 
 		for (Product p : products) {
-			if (lastInvoice.getCustomer_id().equals(p.getCustomer_id())) {
+			if (lastInvoice.getCustomerId().equals(p.getCustomerId())) {
 				if (p.getStatus().equals("In Treatment")) {
 					cpc.setComplete(p.getId());
 				}

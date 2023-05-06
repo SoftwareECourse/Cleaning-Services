@@ -28,17 +28,6 @@ public class AddProductSteps {
 		this.addProductCommand = addProductCommand;
 	}
 
-//	@Given("I have a product with name {string} and size {int} special treatment {string} for a customer with id {int}")
-//	public void i_have_a_product_with_name_and_size_special_treatment_for_a_customer_with_id(String name, int size,
-//			String specialTreatment, int cid) {
-//
-//		product = new Product();
-//		product.setName(name);
-//		product.setSize(size);
-//		product.setSpecialTreatment(Boolean.parseBoolean(specialTreatment));
-//		product.setCustomer_id(cid);
-//	}
-
 	@Given("I have a product with name {string} and size {int} special treatment {string}")
 	public void i_have_a_product_with_name_and_size_special_treatment(String name, Integer size,
 			String specialTreatment) {
@@ -67,7 +56,7 @@ public class AddProductSteps {
 		List<Customer> customers = Customer.getAllCustomers();
 		int customerId = customers.get(customers.size() - 1).getId();
 		System.out.println(customerId);
-		product.setCustomer_id(customerId);
+		product.setCustomerId(customerId);
 
 		product = addProductCommand.addProduct(product);
 	}
@@ -80,7 +69,7 @@ public class AddProductSteps {
 
 		assertNotEquals(product.getName(), savedProdcut.getName());
 		assertNotEquals(product.getSpecialTreatment(), savedProdcut.getSpecialTreatment());
-		assertNotEquals(product.getCustomer_id(), savedProdcut.getCustomer_id());
+		assertNotEquals(product.getCustomerId(), savedProdcut.getCustomerId());
 
 	}
 
@@ -95,7 +84,7 @@ public class AddProductSteps {
 		assertNotNull(savedProduct);
 		assertEquals(product.getName(), savedProduct.getName());
 		assertEquals(product.getSpecialTreatment(), savedProduct.getSpecialTreatment());
-		assertEquals(product.getCustomer_id(), savedProduct.getCustomer_id());
+		assertEquals(product.getCustomerId(), savedProduct.getCustomerId());
 		assertEquals(product.getSize(), savedProduct.getSize());
 		assertEquals(cost, savedProduct.getCost());
 
@@ -133,7 +122,7 @@ public class AddProductSteps {
 		Invoice lastInvoice = invoices.get(invoices.size() - 1);
 		Customer lastCustomer = customers.get(customers.size() - 1);
 
-		assertEquals(lastInvoice.getCustomer_id(), (Object) lastCustomer.getId());
+		assertEquals(lastInvoice.getCustomerId(), (Object) lastCustomer.getId());
 		assertEquals(lastInvoice.getCost(), (Object) product.getCost());
 		assertEquals(lastInvoice.getCost(), (Object) lastInvoice.getDiscountedCost());
 		assertEquals(lastInvoice.getDiscountRate(), (Object) 0f);
