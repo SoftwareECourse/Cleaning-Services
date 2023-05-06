@@ -21,6 +21,7 @@ public class CompleteProductCommand implements Runnable {
 
 	EntityManager em = App.getEntityManager();
 	Logger logger = App.logger;
+	private static final String complete = "Complete";
 
 	public void run() {
 
@@ -29,7 +30,7 @@ public class CompleteProductCommand implements Runnable {
 
 		if (admin.getState()) {
 
-			if (this.setComplete(productId).getStatus().equals("Complete"))
+			if (this.setComplete(productId).getStatus().equals(complete))
 				logger.info("Product %d has been marked as completed and is now available to the customer.%n",
 						productId);
 		} else {
@@ -52,11 +53,11 @@ public class CompleteProductCommand implements Runnable {
 						em.merge(Worker.giveWork(w));
 					}
 				}
-				p.setStatus("Complete");
+				p.setStatus(complete);
 				em.merge(p);
 				em.getTransaction().commit();
 			} else {
-				if (p.getStatus().equals("Complete"))
+				if (p.getStatus().equals(complete))
 					logger.info("The product is already Complete");
 				else
 					logger.info("The product is in Waiting state");
