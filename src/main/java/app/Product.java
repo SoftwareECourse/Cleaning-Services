@@ -17,7 +17,7 @@ public class Product {
 	String description;
 	String status;
 	Boolean specialTreatment;
-	Integer customer_id;
+	Integer customerId;
 	Integer size;
 	Float cost;
 
@@ -86,18 +86,17 @@ public class Product {
 	}
 
 	public Integer getCustomerId() {
-		return customer_id;
+		return customerId;
 	}
 
-	public void setCustomerId(Integer customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", picture=" + picture + ", description=" + description
-				+ ", status=" + status + ", specialTreatment=" + specialTreatment + ", customer id=" + customer_id
-				+ "]";
+				+ ", status=" + status + ", specialTreatment=" + specialTreatment + ", customer id=" + customerId + "]";
 	}
 
 	static EntityManager em = App.getEntityManager();
