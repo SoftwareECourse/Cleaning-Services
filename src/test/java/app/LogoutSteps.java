@@ -1,5 +1,6 @@
 package app;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
@@ -23,7 +24,7 @@ public class LogoutSteps {
 	@Given("that admin is not loged out")
 	public void that_admin_is_not_loged_out() {
 		em.getTransaction().begin();
-		admin = logoutcommand.getAdmin(); // TODO to be discuss [ why em.find(Admin.class,1) does not work propaerly here ? ]
+		admin = logoutcommand.getAdmin();
 		admin.setState(true);
 		em.merge(admin);
 		em.getTransaction().commit();
@@ -37,6 +38,6 @@ public class LogoutSteps {
 
 	@Then("the user will log out from the system successfully")
 	public void the_user_will_log_out_from_the_system_successfully() {
-		assertTrue(this.admin.getState() == false);
+		assertFalse(this.admin.getState());
 	}
 }

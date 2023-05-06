@@ -50,7 +50,7 @@ public class AddCustomerSteps {
 		Customer savedCustomer = em.find(Customer.class, addCustomerCommand.getLastGeneratedId());
 
 		assertNotNull(savedCustomer);
-		assertTrue((numberOfCustomers + 1) == Customer.getAllCustomers().size());
+		assertEquals((numberOfCustomers + 1), Customer.getAllCustomers().size());
 		assertEquals(customer.getName(), savedCustomer.getName());
 		assertEquals(customer.getAddress(), savedCustomer.getAddress());
 		assertEquals(customer.getPhone(), savedCustomer.getPhone());

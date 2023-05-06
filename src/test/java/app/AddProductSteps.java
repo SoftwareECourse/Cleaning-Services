@@ -108,7 +108,7 @@ public class AddProductSteps {
 		if (availableWorker) {
 			assertEquals(status, savedProduct.getStatus());
 			Worker worker = Worker.findWorker(availableWorkerId);
-			assertTrue(worker.getProductId().equals(savedProduct.getId()));
+			assertEquals(worker.getProductId(), (Object) savedProduct.getId());
 		} else {
 			assertTrue(true);
 		}
@@ -133,11 +133,11 @@ public class AddProductSteps {
 		Invoice lastInvoice = invoices.get(invoices.size() - 1);
 		Customer lastCustomer = customers.get(customers.size() - 1);
 
-		assertTrue(lastInvoice.getCustomer_id().equals(lastCustomer.getId()));
-		assertTrue(lastInvoice.getCost().equals(product.getCost()));
+		assertEquals(lastInvoice.getCustomer_id(), (Object) lastCustomer.getId());
+		assertEquals(lastInvoice.getCost(), (Object) product.getCost());
+		assertEquals(lastInvoice.getCost(), (Object) lastInvoice.getDiscountedCost());
+		assertEquals(lastInvoice.getDiscountRate(), (Object) 0f);
 		assertFalse(lastInvoice.getDelivered());
-		assertTrue(lastInvoice.getCost().equals(lastInvoice.getDiscountedCost()));
-		assertTrue(lastInvoice.getDiscountRate().equals(0f));
 
 	}
 
