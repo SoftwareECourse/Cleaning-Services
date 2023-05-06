@@ -30,9 +30,6 @@ public class ListCustomerProductsCommand implements Runnable {
 
 			em.getTransaction().begin();
 
-//			Query query = em.createQuery("FROM Product", Product.class);
-//			List<Product> products = query.getResultList();
-
 			List<Product> products = Product.getAllProducts();
 
 			for (Product p : products) {

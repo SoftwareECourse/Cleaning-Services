@@ -3,7 +3,6 @@ package app.commands;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-
 import org.apache.logging.log4j.Logger;
 
 import app.Admin;
@@ -24,9 +23,6 @@ public class ListProductsCommand implements Runnable {
 
 		if (admin.getState()) {
 			em.getTransaction().begin();
-
-//			Query query = em.createQuery("FROM Product", Product.class);
-//			List<Product> products = query.getResultList();
 
 			List<Product> products = Product.getAllProducts();
 

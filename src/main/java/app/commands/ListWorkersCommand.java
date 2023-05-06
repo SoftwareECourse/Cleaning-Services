@@ -1,9 +1,5 @@
 package app.commands;
 
-//import org.hibernate.Query;
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.cfg.Configuration;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -29,9 +25,6 @@ public class ListWorkersCommand implements Runnable {
 		if (admin.getState()) {
 
 			em.getTransaction().begin();
-
-//			Query query = em.createQuery("FROM Worker", Worker.class);
-//			List<Worker> workers = query.getResultList();
 
 			List<Worker> workers = Worker.getAllWorkers();
 
