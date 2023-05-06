@@ -49,7 +49,7 @@ public class CompleteInvoiceCommand implements Runnable {
 		Invoice invoice = Invoice.findInvoice(invoiceId);
 		Customer customer = Customer.findCustomer(invoice.getCustomer_id());
 
-		if (!invoice.getDelivered()) {
+		if (Boolean.FALSE.equals(invoice.getDelivered())) {
 
 			Boolean invoiceIsReady = true;
 			List<Product> products = Product.getAllProducts();
@@ -60,7 +60,8 @@ public class CompleteInvoiceCommand implements Runnable {
 						break;
 					}
 			}
-			if (invoiceIsReady) {
+
+			if (Boolean.TRUE.equals(invoiceIsReady)) {
 				em.getTransaction().begin();
 				invoice.setDelivered(true);
 				em.merge(invoice);

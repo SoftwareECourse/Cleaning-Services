@@ -102,14 +102,15 @@ public class AddProductCommand implements Runnable {
 		Boolean noInvoiceForCustomer = true;
 		for (Invoice i : invoises) {
 			Boolean existInvoice = i.getCustomer_id().equals(product.getCustomer_id()) && !i.getDelivered();
-			if (existInvoice) {
+
+			if (Boolean.TRUE.equals(existInvoice)) {
 				i.setCost(i.getCost() + product.getCost());
 				em.merge(this.calcDiscount(i));
 				noInvoiceForCustomer = false;
 				break;
 			}
 		}
-		if (noInvoiceForCustomer) {
+		if (Boolean.TRUE.equals(noInvoiceForCustomer)) {
 			Invoice i = new Invoice();
 			i.setCustomer_id(product.getCustomer_id());
 			i.setCost(product.getCost());
