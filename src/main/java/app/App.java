@@ -60,8 +60,7 @@ public class App implements Runnable {
 
 	public static EntityManager getEntityManager() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("myPersistenceUnit");
-		EntityManager em = emf.createEntityManager();
-		return em;
+		return emf.createEntityManager();
 	}
 
 }

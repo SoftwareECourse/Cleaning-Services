@@ -111,8 +111,7 @@ public class Product {
 	public static List<Product> getAllProducts() {
 
 		TypedQuery<Product> query = em.createQuery("FROM Product", Product.class);
-		List<Product> products = query.getResultList();
-		return products;
+		return query.getResultList();
 
 	}
 

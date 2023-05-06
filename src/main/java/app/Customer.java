@@ -66,17 +66,14 @@ public class Customer {
 	}
 
 	public static Customer findCustomer(int id) {
-		Customer customer = em.find(Customer.class, id);
-		return customer;
+		return em.find(Customer.class, id);
 
 	}
 
 	public static List<Customer> getAllCustomers() {
 
 		TypedQuery<Customer> query = em.createQuery("FROM Customer", Customer.class);
-		List<Customer> customers = query.getResultList();
-
-		return customers;
+		return query.getResultList();
 	}
 
 }

@@ -33,8 +33,8 @@ public class LogoutCommand implements Runnable {
 
 	public Admin getAdmin() {
 //		TODO You should get all admins and check all
-		Admin admin = em.find(Admin.class, 1);
-		return admin;
+		return em.find(Admin.class, 1);
+
 	}
 
 }

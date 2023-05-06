@@ -74,15 +74,14 @@ public class Worker {
 	public static List<Worker> getAllWorkers() {
 
 		TypedQuery<Worker> query = em.createQuery("FROM Worker", Worker.class);
-		List<Worker> workers = query.getResultList();
+		return query.getResultList();
 
-		return workers;
 	}
 
 	public static Worker giveWork(Worker w) {
-     
+
 		em.getTransaction().begin();
-		
+
 		Worker worker = w;
 		List<Product> products = Product.getAllProducts();
 		for (Product p : products) {

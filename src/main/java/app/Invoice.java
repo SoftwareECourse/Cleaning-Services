@@ -75,14 +75,12 @@ public class Invoice {
 	static EntityManager em = App.getEntityManager();
 
 	public static Invoice findInvoice(int id) {
-		Invoice invoice = em.find(Invoice.class, id);
-		return invoice;
+		return em.find(Invoice.class, id);
 	}
 
 	public static List<Invoice> getAllInvoices() {
 		TypedQuery<Invoice> query = em.createQuery("FROM Invoice", Invoice.class);
-		List<Invoice> invoices = query.getResultList();
-		return invoices;
+		return query.getResultList();
 
 	}
 
