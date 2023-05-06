@@ -29,7 +29,7 @@ import picocli.CommandLine.Command;
 public class App implements Runnable {
 
 	static CommandLine commandLine;
-	public static Logger logger = LogManager.getLogger(App.class.getName());
+	public static final Logger logger = LogManager.getLogger(App.class.getName());
 
 	public static void main(String[] args) {
 
@@ -63,6 +63,5 @@ public class App implements Runnable {
 		EntityManager em = emf.createEntityManager();
 		return em;
 	}
-	
 
 }
