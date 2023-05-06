@@ -44,7 +44,7 @@ public class LoginCommand implements Runnable {
 	}
 
 	public Admin getAdmin() {
-//		TODO You should get all admins and check all
+
 		return em.find(Admin.class, 1);
 
 	}
