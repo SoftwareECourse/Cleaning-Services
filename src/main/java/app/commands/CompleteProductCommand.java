@@ -56,12 +56,11 @@ public class CompleteProductCommand implements Runnable {
 				p.setStatus(COMPLETE);
 				em.merge(p);
 				em.getTransaction().commit();
-			} else {
-				if (p.getStatus().equals(COMPLETE))
-					logger.info("The product is already Complete");
-				else
-					logger.info("The product is in Waiting state");
-			}
+			} else if (p.getStatus().equals(COMPLETE))
+				logger.info("The product is already Complete");
+			else
+				logger.info("The product is in Waiting state");
+
 			return p;
 		} else {
 			logger.error("Product id is not correct");
